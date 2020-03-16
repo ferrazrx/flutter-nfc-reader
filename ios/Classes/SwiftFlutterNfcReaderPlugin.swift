@@ -112,7 +112,7 @@ extension SwiftFlutterNfcReaderPlugin : NFCTagReaderSessionDelegate  {
             for byte in byteData {
                 let decimalNumber = String(byte, radix: 16)
                 if (Int(decimalNumber) ?? 0) < 10 { // add leading zero
-                    uidString.append("0\(decimalNumber)")
+                    uidString.append("\(decimalNumber)")
                 } else {
                     uidString.append(decimalNumber)
                 }
