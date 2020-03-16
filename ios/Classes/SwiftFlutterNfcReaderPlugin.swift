@@ -101,7 +101,7 @@ extension SwiftFlutterNfcReaderPlugin : NFCTagReaderSessionDelegate  {
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         
-        var uidString = ""
+        var uidString = "0x"
         var content = ""
         if case let NFCTag.miFare(tag) = tags.first! {
           
@@ -110,11 +110,13 @@ extension SwiftFlutterNfcReaderPlugin : NFCTagReaderSessionDelegate  {
             tagUIDData.withUnsafeBytes { byteData.append(contentsOf: $0) }
             
             for byte in byteData {
-                let decimalNumber = String(byte, radix: 16)
+                let decimalNumber = String(byte, radix: 10)
+                let hexNumber = String(byte, radix: 16)
                 if (Int(decimalNumber) ?? 0) < 10 { // add leading zero
-                    uidString.append("\(decimalNumber)")
+                    uidString.append("0\(hexNumber)")
+                    
                 } else {
-                    uidString.append(decimalNumber)
+                    uidString.append(hexNumber)
                 }
             }
             
